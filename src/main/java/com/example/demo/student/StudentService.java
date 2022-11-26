@@ -20,4 +20,14 @@ public class StudentService {
     public List<Student> getStudents(){
         return studentRepository.findAll();
     }
+
+    public void addNewStudent(Student student) {
+             var studentOptional=studentRepository
+                     .findByStudentEmail(student.getEmail());
+             if(studentOptional.isPresent()){
+                 throw new IllegalStateException("Email taken");
+             }
+
+             studentRepository.save(student);
+    }
 }
